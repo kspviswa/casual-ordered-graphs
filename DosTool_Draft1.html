@@ -1,0 +1,135 @@
+
+<!DOCTYPE html><html class=''>
+<head><!--meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="canonical" href="http://codepen.io/mulderp/pen/wxmBd" /-->
+
+<style class="cp-pen-styles">circle {
+  color: black;
+}
+label{
+  font-size: 50px;
+  font-weight: bold;
+}
+</style>
+<title>
+A tool to draw DoS graph
+</title>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
+<h1> Excercise to do directed graph for lamport logical clock </h1>
+<div id="graph">
+</div>
+
+<script>
+
+
+var vis = d3.select("#graph")
+            .append("svg")
+.attr("width", 500).attr("height", 500);
+
+var nodes_p1 = [
+    {x: 10, y: 50},
+    {x: 70, y: 50},
+    {x: 140, y: 50},
+    {x: 210, y: 50}
+  ]
+
+var nodes_p2 = [
+    {x: 10, y: 100},
+    {x: 70, y: 100},
+    {x: 140, y: 100},
+    {x: 210, y: 100}
+  ]
+var nodes_p3 = [
+    {x: 10, y: 150},
+    {x: 70, y: 150},
+    {x: 140, y: 150},
+    {x: 210, y: 150}
+  ]
+
+vis.selectAll("circle.nodes")
+   .data(nodes_p1)
+   .enter()
+   .append("svg:circle")
+   .attr("cx", function(d) { return d.x; })
+   .attr("cy", function(d) { return d.y; })
+   .attr("r", "10px")
+   .attr("fill", "black")
+ 
+vis.selectAll("circle.nodes")
+   .data(nodes_p2)
+   .enter()
+   .append("svg:circle")
+   .attr("cx", function(d) { return d.x; })
+   .attr("cy", function(d) { return d.y; })
+   .attr("r", "10px")
+   .attr("fill", "black")
+
+vis.selectAll("circle.nodes")
+   .data(nodes_p3)
+   .enter()
+   .append("svg:circle")
+   .attr("cx", function(d) { return d.x; })
+   .attr("cy", function(d) { return d.y; })
+   .attr("r", "10px")
+   .attr("fill", "black")
+
+var links = [
+  {source: nodes_p1[0], target: nodes_p1[3]},
+  {source: nodes_p2[0], target: nodes_p2[3]},
+  {source: nodes_p3[0], target: nodes_p3[3]}
+]
+  
+  vis.selectAll(".line")
+   .data(links)
+   .enter()
+   .append("line")
+   .attr("x1", function(d) { return d.source.x })
+   .attr("y1", function(d) { return d.source.y })
+   .attr("x2", function(d) { return d.target.x })
+   .attr("y2", function(d) { return d.target.y })
+   .style("stroke", "rgb(0,0,0)")
+   .style("stroke-width", "0.75%");
+
+var totalUnits = vis.append("svg:text")
+  .attr("class", "label")
+  .attr("dx", 30)
+  .attr("dy", 70)
+  .attr("text-anchor", "middle") // text-align: right
+  .text("P1");
+
+var totalUnits = vis.append("svg:text")
+  .attr("class", "label")
+  .attr("dx", 30)
+  .attr("dy", 120)
+  .attr("text-anchor", "middle") // text-align: right
+  .text("P2");
+
+var totalUnits = vis.append("svg:text")
+  .attr("class", "label")
+  .attr("dx", 30)
+  .attr("dy", 170)
+  .attr("text-anchor", "middle") // text-align: right
+  .text("P3");
+
+
+// Now coming to actual probem
+var doslinks = [
+  {source: nodes_p1[1], target: nodes_p2[3]},
+  {source: nodes_p1[2], target: nodes_p3[2]}
+]
+
+vis.selectAll(".line")
+   .data(doslinks)
+   .enter()
+   .append("line")
+   .attr("x1", function(d) { return d.source.x })
+   .attr("y1", function(d) { return d.source.y })
+   .attr("x2", function(d) { return d.target.x })
+   .attr("y2", function(d) { return d.target.y })
+   .style("stroke", "rgb(0,0,0)")
+   .style("stroke-width", "0.75%");
+//@ sourceURL=pen.js
+</script>
+<!--script src='http://codepen.io/assets/editor/live/css_live_reload_init.js'></script-->
+</body></html>
